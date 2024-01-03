@@ -3,7 +3,7 @@ package build
 var (
 	mode       = DevelopMode
 	commitHash = "none"
-	path       = "./../config.yml"
+	configPath = "./../config.yml"
 )
 
 func IsProductionMode() bool {
@@ -19,5 +19,5 @@ func CommitHash() string {
 }
 
 func ConfigPath() string {
-	return path
+	return configPath
 }
