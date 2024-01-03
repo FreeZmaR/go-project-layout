@@ -13,6 +13,10 @@ type HTTPServer struct {
 	TLS             *HTTPTLS `yaml:"tls"`
 }
 
+func (s HTTPServer) Addr() string {
+	return s.Host + ":" + s.Port
+}
+
 type HTTPTLS struct {
 	KeyFilepath  string         `yaml:"key_filepath"`
 	CertFilepath string         `yaml:"cert_filepath"`

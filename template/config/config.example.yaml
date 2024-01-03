@@ -18,9 +18,9 @@ inbox:
     user: "user"
     password: "secret"
     database: "inbox"
+    pool_size: 5
     default_query_timeout_sec: 5
-    close_connect_timeout_sec: 5
-    make_connect_timeout_sec: 5
+    idle_connect_timeout_sec: 5
 
 outbox:
   http_server:
@@ -42,9 +42,9 @@ outbox:
     user: "user"
     password: "secret"
     database: "outbox"
+    pool_size: 5
     default_query_timeout_sec: 5
-    close_connect_timeout_sec: 5
-    make_connect_timeout_sec: 5
+    idle_connect_timeout_sec: 5
   redis:
     network: "tcp"
     host: "127.0.0.1"
