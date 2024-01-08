@@ -1,7 +1,10 @@
 # Golang Project Layout
 
 <p id="description">A Golang project structure including a simple example.</p>
-<img src="https://badgen.net/badge/golang/v1.21/3988FB" alt="shields">  <img src="https://badgen.net/badge/uber.fx/v1.20/39d353" alt="shields">
+<p>
+    <a href="https://tip.golang.org/doc/go1.21"><img src="https://badgen.net/badge/golang/v1.21/3988FB" alt="shields"></a>
+    <a href="https://github.com/uber-go/fx"><img src="https://badgen.net/badge/uber.fx/v1.20/39d353" alt="shields"></a>
+</p>
 
 ## Goals
 
