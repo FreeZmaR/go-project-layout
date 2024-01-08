@@ -1,0 +1,56 @@
+inbox:
+  http_server:
+    host: "0.0.0.0"
+    port: "8098"
+    read_timeout_sec: 5
+    write_timeout_sec: 15
+    idle_timeout_sec: 60
+    shutdown_timeout_sec: 60
+    tls:
+        cert_filepath: ""
+        key_filepath: ""
+        client_ca_filepath: ""
+        client_crl_filepath: ""
+        client_auth_type: "NoClientCert"
+  postgres:
+    host: "127.0.0.1"
+    port: 5432
+    user: "user"
+    password: "secret"
+    database: "inbox"
+    pool_size: 5
+    default_query_timeout_sec: 5
+    idle_connect_timeout_sec: 5
+
+outbox:
+  http_server:
+    host: "0.0.0.0"
+    port: "8099"
+    read_timeout_sec: 5
+    write_timeout_sec: 15
+    idle_timeout_sec: 60
+    shutdown_timeout_sec: 60
+    tls:
+      cert_filepath: ""
+      key_filepath: ""
+      client_ca_filepath: ""
+      client_crl_filepath: ""
+      client_auth_type: "NoClientCert"
+  postgres:
+    host: "127.0.0.1"
+    port: 5432
+    user: "user"
+    password: "secret"
+    database: "outbox"
+    pool_size: 5
+    default_query_timeout_sec: 5
+    idle_connect_timeout_sec: 5
+  redis:
+    network: "tcp"
+    host: "127.0.0.1"
+    port: "6379"
+    user: "user"
+    password: "secret"
+    query_timeout_sec: 5
+    database: 0
+

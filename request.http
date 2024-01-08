@@ -1,0 +1,10 @@
+### Send a new transaction to the inbox
+POST http://localhost:8098/inbox/v1/new-transaction
+Content-Type: application/json
+
+{
+
+}
+
+### Get transactions from the outbox
+GET http://localhost:8098/outbox/v1/show-transaction/

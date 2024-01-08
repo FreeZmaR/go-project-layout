@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+  service_layer_postgres:
+    container_name: service_layer_postgres
+    image: postgres:13.2
+    ports:
+      - "5433:5432"
+    volumes:
+      -   service_layer_postgres:/var/lib/postgresql/data/
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file:
+      - docker/postgres/config.env
+    networks:
+      service_layer:
+        aliases:
+          - pgsql
+
+  inbox:
+    build:
+      context: .
+      dockerfile: ./docker/inbox/Dockerfile
+    ports:
+    - "8098:8098"
+    volumes:
+      - .:/app
+    networks:
+      service_layer:
+        aliases:
+          - inbox
+
+  outbox:
+    build:
+      context: .
+      dockerfile: ./docker/outbox/Dockerfile
+    ports:
+      - "8099:8099"
+    volumes:
+      - .:/app
+    networks:
+      service_layer:
+        aliases:
+          - outbox
+
+
+volumes:
+  service_layer_postgres:
+    external: true
+
+networks:
+  service_layer:
+    external: true
