@@ -2,9 +2,9 @@ package config
 
 import (
 	"errors"
-	"github.com/FreeZmaR/go-service-structure/template/config/build"
-	"github.com/FreeZmaR/go-service-structure/template/config/load"
-	"github.com/FreeZmaR/go-service-structure/template/config/types"
+	"github.com/FreeZmaR/go-project-layout/config/build"
+	"github.com/FreeZmaR/go-project-layout/config/load"
+	"github.com/FreeZmaR/go-project-layout/config/types"
 )
 
 func LoadInbox() (*types.Inbox, error) {

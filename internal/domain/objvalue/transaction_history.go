@@ -1,6 +1,6 @@
 package objvalue
 
-import "github.com/FreeZmaR/go-service-structure/template/internal/domain/definition"
+import "github.com/FreeZmaR/go-project-layout/internal/domain/definition"
 
 type TransactionHistory struct {
 	OldStatus        TransactionStatus

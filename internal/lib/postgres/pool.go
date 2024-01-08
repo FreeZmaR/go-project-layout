@@ -3,7 +3,7 @@ package postgres
 import (
 	"context"
 	"fmt"
-	"github.com/FreeZmaR/go-service-structure/template/config/types"
+	"github.com/FreeZmaR/go-project-layout/config/types"
 	"net/url"
 	"time"
 

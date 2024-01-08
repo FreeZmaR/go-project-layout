@@ -1,7 +1,7 @@
 package v1
 
 import (
-	"github.com/FreeZmaR/go-service-structure/template/config/types"
+	"github.com/FreeZmaR/go-project-layout/config/types"
 	"github.com/gorilla/mux"
 	"go.uber.org/fx"
 )

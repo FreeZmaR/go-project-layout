@@ -2,10 +2,10 @@ package repository
 
 import (
 	"context"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/aggregate"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/model"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/objvalue"
-	"github.com/FreeZmaR/go-service-structure/template/internal/lib/utils"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/aggregate"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/model"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/objvalue"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/utils"
 	"github.com/google/uuid"
 	"time"
 )

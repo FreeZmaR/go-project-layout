@@ -2,9 +2,9 @@ package repository
 
 import (
 	"context"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/model"
-	"github.com/FreeZmaR/go-service-structure/template/internal/lib/redis"
-	"github.com/FreeZmaR/go-service-structure/template/internal/storage/rd"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/model"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/redis"
+	"github.com/FreeZmaR/go-project-layout/internal/storage/rd"
 	"github.com/google/uuid"
 )
 

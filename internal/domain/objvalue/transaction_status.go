@@ -1,6 +1,6 @@
 package objvalue
 
-import "github.com/FreeZmaR/go-service-structure/template/internal/lib/utils"
+import "github.com/FreeZmaR/go-project-layout/internal/lib/utils"
 
 const (
 	TransactionStatusUnknown TransactionStatus = 0

@@ -1,6 +1,6 @@
 package definition
 
-import "github.com/FreeZmaR/go-service-structure/template/internal/lib/utils"
+import "github.com/FreeZmaR/go-project-layout/internal/lib/utils"
 
 // Currency - The purpose of currency in the field of international transfers is to facilitate the exchange of goods
 // and services between countries with different monetary systems.

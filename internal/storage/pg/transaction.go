@@ -2,8 +2,8 @@ package pg
 
 import (
 	"context"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/model"
-	"github.com/FreeZmaR/go-service-structure/template/internal/lib/postgres"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/model"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/postgres"
 	"github.com/google/uuid"
 )
 
@@ -24,7 +24,7 @@ INSERT INTO transactions (
 	user_to_id,
 	created_at,
  	updated_at
-) VALUES ($1, $2, $3, $4, $5, $6)`
+) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`
 
 	return conn.Exec(
 		ctx,

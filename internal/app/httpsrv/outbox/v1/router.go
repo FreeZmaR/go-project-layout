@@ -1,8 +1,8 @@
 package v1
 
 import (
-	"github.com/FreeZmaR/go-service-structure/template/internal/app/httpsrv/outbox/v1/handler"
-	"github.com/FreeZmaR/go-service-structure/template/internal/usecase"
+	"github.com/FreeZmaR/go-project-layout/internal/app/httpsrv/outbox/v1/handler"
+	"github.com/FreeZmaR/go-project-layout/internal/usecase"
 	"github.com/gorilla/mux"
 	"net/http"
 )

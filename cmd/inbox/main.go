@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/FreeZmaR/go-service-structure/template/config"
-	"github.com/FreeZmaR/go-service-structure/template/config/build"
-	"github.com/FreeZmaR/go-service-structure/template/config/types"
-	"github.com/FreeZmaR/go-service-structure/template/internal/app/httpsrv"
+	"github.com/FreeZmaR/go-project-layout/config"
+	"github.com/FreeZmaR/go-project-layout/config/build"
+	"github.com/FreeZmaR/go-project-layout/config/types"
+	"github.com/FreeZmaR/go-project-layout/internal/app/httpsrv"
 	"go.uber.org/fx"
 	"log/slog"
 	"os"

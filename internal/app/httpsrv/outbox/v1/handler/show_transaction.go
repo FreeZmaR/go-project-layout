@@ -2,9 +2,9 @@ package handler
 
 import (
 	"errors"
-	"github.com/FreeZmaR/go-service-structure/template/internal/app/httpsrv/outbox/v1/responder"
-	"github.com/FreeZmaR/go-service-structure/template/internal/app/httpsrv/outbox/v1/validation"
-	"github.com/FreeZmaR/go-service-structure/template/internal/usecase"
+	"github.com/FreeZmaR/go-project-layout/internal/app/httpsrv/outbox/v1/responder"
+	"github.com/FreeZmaR/go-project-layout/internal/app/httpsrv/outbox/v1/validation"
+	"github.com/FreeZmaR/go-project-layout/internal/usecase"
 	"log/slog"
 	"net/http"
 )

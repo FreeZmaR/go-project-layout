@@ -3,8 +3,8 @@ package usecase
 import (
 	"context"
 	"errors"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/aggregate"
-	"github.com/FreeZmaR/go-service-structure/template/internal/repository"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/aggregate"
+	"github.com/FreeZmaR/go-project-layout/internal/repository"
 	"github.com/google/uuid"
 )
 

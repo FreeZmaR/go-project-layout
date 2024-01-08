@@ -3,8 +3,8 @@ package validation
 import (
 	"encoding/json"
 	"errors"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/definition"
-	"github.com/FreeZmaR/go-service-structure/template/internal/lib/utils"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/definition"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/utils"
 	"github.com/google/uuid"
 	"net/http"
 )

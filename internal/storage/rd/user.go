@@ -3,8 +3,8 @@ package rd
 import (
 	"context"
 	"encoding/json"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/model"
-	"github.com/FreeZmaR/go-service-structure/template/internal/lib/redis"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/model"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/redis"
 	"github.com/google/uuid"
 	"time"
 )

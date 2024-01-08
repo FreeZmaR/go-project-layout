@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"github.com/FreeZmaR/go-service-structure/template/config/types"
+	"github.com/FreeZmaR/go-project-layout/config/types"
 	"time"
 
 	rd "github.com/go-redis/redis/v8"

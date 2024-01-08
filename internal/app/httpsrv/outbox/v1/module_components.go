@@ -2,10 +2,10 @@ package v1
 
 import (
 	"context"
-	"github.com/FreeZmaR/go-service-structure/template/internal/lib/postgres"
-	"github.com/FreeZmaR/go-service-structure/template/internal/lib/redis"
-	"github.com/FreeZmaR/go-service-structure/template/internal/repository"
-	"github.com/FreeZmaR/go-service-structure/template/internal/usecase"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/postgres"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/redis"
+	"github.com/FreeZmaR/go-project-layout/internal/repository"
+	"github.com/FreeZmaR/go-project-layout/internal/usecase"
 	"go.uber.org/fx"
 )
 

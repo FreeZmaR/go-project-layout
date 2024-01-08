@@ -4,7 +4,7 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"errors"
-	"github.com/FreeZmaR/go-service-structure/template/config/types"
+	"github.com/FreeZmaR/go-project-layout/config/types"
 	"os"
 )
 

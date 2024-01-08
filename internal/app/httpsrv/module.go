@@ -1,8 +1,8 @@
 package httpsrv
 
 import (
-	inboxV1 "github.com/FreeZmaR/go-service-structure/template/internal/app/httpsrv/inbox/v1"
-	outboxV1 "github.com/FreeZmaR/go-service-structure/template/internal/app/httpsrv/outbox/v1"
+	inboxV1 "github.com/FreeZmaR/go-project-layout/internal/app/httpsrv/inbox/v1"
+	outboxV1 "github.com/FreeZmaR/go-project-layout/internal/app/httpsrv/outbox/v1"
 	"go.uber.org/fx"
 )
 

@@ -2,9 +2,9 @@ package rd
 
 import (
 	"errors"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/definition"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/model"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/objvalue"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/definition"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/model"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/objvalue"
 	"github.com/google/uuid"
 	"time"
 )

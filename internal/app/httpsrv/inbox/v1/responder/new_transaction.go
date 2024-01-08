@@ -1,10 +1,10 @@
 package responder
 
 import (
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/aggregate"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/definition"
-	"github.com/FreeZmaR/go-service-structure/template/internal/lib/responder"
-	"github.com/FreeZmaR/go-service-structure/template/internal/lib/utils"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/aggregate"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/definition"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/responder"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/utils"
 	"log/slog"
 	"net/http"
 )

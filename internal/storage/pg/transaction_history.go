@@ -2,8 +2,8 @@ package pg
 
 import (
 	"context"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/objvalue"
-	"github.com/FreeZmaR/go-service-structure/template/internal/lib/postgres"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/objvalue"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/postgres"
 	"github.com/google/uuid"
 	"time"
 )

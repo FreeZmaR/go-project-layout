@@ -2,9 +2,9 @@ package repository
 
 import (
 	"context"
-	"github.com/FreeZmaR/go-service-structure/template/internal/domain/model"
-	"github.com/FreeZmaR/go-service-structure/template/internal/lib/postgres"
-	"github.com/FreeZmaR/go-service-structure/template/internal/storage/pg"
+	"github.com/FreeZmaR/go-project-layout/internal/domain/model"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/postgres"
+	"github.com/FreeZmaR/go-project-layout/internal/storage/pg"
 	"github.com/google/uuid"
 )
 
