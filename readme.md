@@ -10,8 +10,8 @@
 
 The main goals of this project are:
  - Show service structure for Golang projects with a simple example
- - Show how it's to use DI in Golang by `go.uber.org/fx` and how it can be convenient
- - Show how easy it's to work when project structure has boundaries between layers
+ - Show how to use DI in Golang by `go.uber.org/fx` and how it can be convenient
+ - Show how easy it is to work when project structure has boundaries between layers
 
 ## Features
 
@@ -21,25 +21,25 @@ Here are some of the project's features:
  - Clear description of the project's domain area 
  - No need to worry about errors with cyclic imports
  - Support for modularity
- - Ease to use
+ - Easy to use
 
 
 ## Project Structure
 
-I like to split the project into several layers, each of which has its own responsibilities and boundaries.
+I like splitting the project into several layers, each of them has own responsibilities and boundaries.
 
-For me, any projects have the main layers:
+For me, any project has three main layers:
   - `CMD` - entry point for the application, in this layer we describe how to run the application
-  - `Internal` - the main layer of the application, in this layer we describe the domain area and business logic of the application/s
-  - `Config` - the layer of the application that is responsible for the configuration of the application/s, I call this layer as *house foundation*
+  - `Internal` - the main layer of the application, in this layer we describe the domain area and business logic of the application's
+  - `Config` - the layer of the application that is responsible for the configuration of the application's, I call this layer *foundation*
 
 
     I want to pay attention to the fact that the project structure is not a dogma, it is just a recommendation.
 
 
-In *layer relationship diagram* you can see that project structure has boundaries between layers and what is it knowing about each other.
+In *layer relationship diagram* you can see that the project structure has boundaries between layers and layers can address to each other.
 
-`CMD` layer knows about `Internal` and `Config` layers, `Internal` layer knows only about `Config` layer. `Config` layer knows nothing about other layers.
+`CMD` layer contact with `Internal` and `Config` layers, `Internal` layer contact only with `Config` layer. `Config` layer does not contact with other layers.
 
 **Layer relationship diagram:**
 ```mermaid
@@ -56,22 +56,22 @@ Each layer has detailed description in the `readme.md` file inside the layer dir
 - [Internal Layer](internal/readme.md)
 - [Config Layer](config/readme.md)
 
-For root directory, I'd like to use files that are responsible for the service and help to use this service.
+For the root directory, I would like to use files that are responsible for the service and help to use this service.
 In my example, I use `Makefile` and `docker-compose.yml` files. Usually you want to open root directory and use something quickly.
 Also in the golang service you can use `go.mod` and `go.sum` files.
 
 
 ## Project Example
 
-In this project, I will show you how to use the project structure and how to use DI in Golang.
-For example, I will use a simple application that will have two applications: `inbox` and `outbox`.
+In this project, I show you how to use the project structure and how to use DI in Golang.
+For example, I use a simple payment service that have two applications: `inbox` and `outbox`.
 
-The `inbox` application will be responsible for handling request on creating *payment transaction* from the user, 
-and the `outbox` application will be responsible for handling request for showing *payment transaction* from the user.
+The `inbox` application responsible for handling requests for creating *payment transaction* from the user, 
+and the `outbox` application responsible for handling requests for showing *payment transaction* from the user.
 
-For this example, I will use the `http` server, using the `http` server I'll show you how you can use versioning and why you should use `uber.fx`.
+For this example, I use the `http` server, to show how you can use versioning and why you should use `uber.fx`.
 
-P.S. I will not describe the application logic in detail, I will only show the structure of the application and how to use DI in Golang. Some time you can see not optimized code, because the goal was to show project structure.
+P.S. I'm not describe the application logic in details, I only try to show the structure of the application and how to use DI in Golang. Sometimes you can see not optimized code or solutions, because the goal was to show project structure.
 
 
 
