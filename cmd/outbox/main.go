@@ -24,7 +24,7 @@ func main() {
 
 	slog.Info("Config loaded")
 
-	app := httpsrv.NewOutboxV1(
+	app := httpsrv.NewAppOutboxV1(
 		fx.Provide(
 			func() *types.HTTPServer { return cfg.Server },
 			func() *types.Postgres { return cfg.Postgres },

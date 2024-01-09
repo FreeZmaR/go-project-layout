@@ -8,8 +8,21 @@ import (
 
 const moduleName = "HTTP-Server"
 
-func NewInboxV1(provider fx.Option) *fx.App {
+func NewAppInboxV1(provider fx.Option) *fx.App {
 	return newModuleApp(
+		NewModuleInboxV1(provider),
+	)
+}
+
+func NewAppOutboxV1(provider fx.Option) *fx.App {
+	return newModuleApp(
+		NewModuleOutboxV1(provider),
+	)
+}
+
+func NewModuleInboxV1(provider fx.Option) fx.Option {
+	return fx.Module(
+		moduleName,
 		provider,
 		fx.Options(
 			inboxV1.NewModule(),
@@ -25,8 +38,9 @@ func NewInboxV1(provider fx.Option) *fx.App {
 	)
 }
 
-func NewOutboxV1(provider fx.Option) *fx.App {
-	return newModuleApp(
+func NewModuleOutboxV1(provider fx.Option) fx.Option {
+	return fx.Module(
+		moduleName,
 		provider,
 		fx.Options(
 			outboxV1.NewModule(),
@@ -42,12 +56,9 @@ func NewOutboxV1(provider fx.Option) *fx.App {
 	)
 }
 
-func newModuleApp(options ...fx.Option) *fx.App {
+func newModuleApp(module fx.Option) *fx.App {
 	return fx.New(
-		fx.Module(
-			moduleName,
-			options...,
-		),
+		module,
 		fx.NopLogger,
 	)
 }
