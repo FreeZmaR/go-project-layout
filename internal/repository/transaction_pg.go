@@ -10,27 +10,27 @@ import (
 	"time"
 )
 
-type transactionRP struct {
+type TransactionPG struct {
 	db postgres.Connect
 }
 
-func NewTransaction(db postgres.Connect) Transaction {
-	return &transactionRP{db: db}
+func NewTransaction(db postgres.Connect) *TransactionPG {
+	return &TransactionPG{db: db}
 }
 
-func (rp transactionRP) Get(ctx context.Context, transactionID uuid.UUID) (*model.Transaction, error) {
+func (rp TransactionPG) Get(ctx context.Context, transactionID uuid.UUID) (*model.Transaction, error) {
 	return pg.GetTransaction(ctx, rp.db, transactionID)
 }
 
-func (rp transactionRP) Create(ctx context.Context, transaction *model.Transaction) error {
+func (rp TransactionPG) Create(ctx context.Context, transaction *model.Transaction) error {
 	return pg.CreateTransaction(ctx, rp.db, transaction)
 }
 
-func (rp transactionRP) UpdateStatus(ctx context.Context, transaction *model.Transaction) error {
+func (rp TransactionPG) UpdateStatus(ctx context.Context, transaction *model.Transaction) error {
 	return pg.UpdateTransactionStatus(ctx, rp.db, transaction)
 }
 
-func (rp transactionRP) CreateHistory(
+func (rp TransactionPG) CreateHistory(
 	ctx context.Context,
 	transactionID uuid.UUID,
 	history objvalue.TransactionHistory,

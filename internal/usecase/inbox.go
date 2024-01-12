@@ -14,15 +14,15 @@ import (
 	"log/slog"
 )
 
-type inbox struct {
+type InboxInstance struct {
 	repo repository.Inbox
 }
 
-func NewInbox(inboxRepo repository.Inbox) Inbox {
-	return inbox{repo: inboxRepo}
+func NewInbox(inboxRepo repository.Inbox) *InboxInstance {
+	return &InboxInstance{repo: inboxRepo}
 }
 
-func (uc inbox) MakeTransaction(
+func (uc InboxInstance) MakeTransaction(
 	ctx context.Context,
 	userFromID, userToID uuid.UUID,
 	amount int,
@@ -59,7 +59,7 @@ func (uc inbox) MakeTransaction(
 	return transaction, nil
 }
 
-func (uc inbox) InspectTransaction(
+func (uc InboxInstance) InspectTransaction(
 	ctx context.Context,
 	transaction *aggregate.Transaction,
 ) error {
@@ -93,7 +93,7 @@ func (uc inbox) InspectTransaction(
 	return nil
 }
 
-func (uc inbox) ConfirmTransaction(
+func (uc InboxInstance) ConfirmTransaction(
 	ctx context.Context,
 	transaction *aggregate.Transaction,
 ) error {
@@ -118,7 +118,7 @@ func (uc inbox) ConfirmTransaction(
 	return nil
 }
 
-func (uc inbox) getUser(ctx context.Context, userID uuid.UUID) (*model.User, error) {
+func (uc InboxInstance) getUser(ctx context.Context, userID uuid.UUID) (*model.User, error) {
 	user, err := uc.repo.GetUser(ctx, userID)
 	if nil == err {
 		return user, nil
@@ -131,7 +131,7 @@ func (uc inbox) getUser(ctx context.Context, userID uuid.UUID) (*model.User, err
 	return nil, err
 }
 
-func (uc inbox) createTransactionHistory(
+func (uc InboxInstance) createTransactionHistory(
 	ctx context.Context,
 	transaction *aggregate.Transaction,
 ) {

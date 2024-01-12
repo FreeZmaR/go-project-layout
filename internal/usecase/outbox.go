@@ -8,15 +8,15 @@ import (
 	"github.com/google/uuid"
 )
 
-type outbox struct {
+type OutboxInstance struct {
 	repo repository.Outbox
 }
 
-func NewOutbox(repo repository.Outbox) Outbox {
-	return outbox{repo: repo}
+func NewOutbox(repo repository.Outbox) *OutboxInstance {
+	return &OutboxInstance{repo: repo}
 }
 
-func (uc outbox) ShowTransaction(ctx context.Context, transactionID uuid.UUID) (*aggregate.Transaction, error) {
+func (uc OutboxInstance) ShowTransaction(ctx context.Context, transactionID uuid.UUID) (*aggregate.Transaction, error) {
 	transaction, err := uc.repo.GetTransaction(ctx, transactionID)
 	if nil == err {
 		return transaction, nil

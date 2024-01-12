@@ -10,18 +10,18 @@ import (
 
 const userExpirationTime = 60 * 60 * 24 * 7
 
-type userCache struct {
+type UserCacheRD struct {
 	db redis.Connect
 }
 
-func NewUserCache(db redis.Connect) UserCache {
-	return &userCache{db: db}
+func NewUserCache(db redis.Connect) *UserCacheRD {
+	return &UserCacheRD{db: db}
 }
 
-func (rp userCache) Get(ctx context.Context, userID uuid.UUID) (*model.User, error) {
+func (rp UserCacheRD) Get(ctx context.Context, userID uuid.UUID) (*model.User, error) {
 	return rd.GetUser(ctx, rp.db, userID)
 }
 
-func (rp userCache) Set(ctx context.Context, user *model.User) error {
+func (rp UserCacheRD) Set(ctx context.Context, user *model.User) error {
 	return rd.SetUser(ctx, rp.db, *user, userExpirationTime)
 }

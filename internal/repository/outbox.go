@@ -11,7 +11,7 @@ import (
 	"log/slog"
 )
 
-type outbox struct {
+type OutboxInstance struct {
 	user       User
 	userCache  UserCache
 	trans      Transaction
@@ -23,8 +23,8 @@ func NewOutbox(
 	uCache UserCache,
 	trans Transaction,
 	transCache TransactionCache,
-) Outbox {
-	return &outbox{
+) *OutboxInstance {
+	return &OutboxInstance{
 		user:       user,
 		userCache:  uCache,
 		trans:      trans,
@@ -32,7 +32,7 @@ func NewOutbox(
 	}
 }
 
-func (rp outbox) GetTransaction(ctx context.Context, transactionID uuid.UUID) (*aggregate.Transaction, error) {
+func (rp OutboxInstance) GetTransaction(ctx context.Context, transactionID uuid.UUID) (*aggregate.Transaction, error) {
 	transModel, err := rp.getTransaction(ctx, transactionID)
 	if err != nil {
 		return nil, err
@@ -51,7 +51,7 @@ func (rp outbox) GetTransaction(ctx context.Context, transactionID uuid.UUID) (*
 	return aggregate.NewTransaction(transModel).SetUserFrom(userFrom).SetUserTo(userTo), nil
 }
 
-func (rp outbox) getTransaction(
+func (rp OutboxInstance) getTransaction(
 	ctx context.Context,
 	transactionID uuid.UUID,
 ) (*model.Transaction, error) {
@@ -75,7 +75,7 @@ func (rp outbox) getTransaction(
 	return transaction, nil
 }
 
-func (rp outbox) setTransactionToCache(
+func (rp OutboxInstance) setTransactionToCache(
 	ctx context.Context,
 	transaction model.Transaction,
 ) {
@@ -84,7 +84,7 @@ func (rp outbox) setTransactionToCache(
 	}
 }
 
-func (rp outbox) getUser(ctx context.Context, userID uuid.UUID) (*model.User, error) {
+func (rp OutboxInstance) getUser(ctx context.Context, userID uuid.UUID) (*model.User, error) {
 	if user, err := rp.userCache.Get(ctx, userID); nil == err {
 		return user, nil
 

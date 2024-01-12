@@ -10,30 +10,30 @@ import (
 	"time"
 )
 
-type inbox struct {
+type InboxInstance struct {
 	trans Transaction
 	user  User
 }
 
-func NewInbox(trans Transaction, userRP User) Inbox {
-	return &inbox{trans: trans, user: userRP}
+func NewInbox(trans Transaction, userRP User) *InboxInstance {
+	return &InboxInstance{trans: trans, user: userRP}
 }
 
-func (rp inbox) CreateTransaction(ctx context.Context, transaction *aggregate.Transaction) error {
+func (rp InboxInstance) CreateTransaction(ctx context.Context, transaction *aggregate.Transaction) error {
 	transModel := transaction.Model()
 	transModel.CreatedAt = time.Now()
 
 	return rp.trans.Create(ctx, transModel)
 }
 
-func (rp inbox) UpdateTransactionStatus(ctx context.Context, transaction *aggregate.Transaction) error {
+func (rp InboxInstance) UpdateTransactionStatus(ctx context.Context, transaction *aggregate.Transaction) error {
 	transModel := transaction.Model()
 	transModel.UpdatedAt = utils.WithPtr(time.Now())
 
 	return rp.trans.UpdateStatus(ctx, transModel)
 }
 
-func (rp inbox) CreateTransactionHistory(
+func (rp InboxInstance) CreateTransactionHistory(
 	ctx context.Context,
 	transactionID uuid.UUID,
 	history objvalue.TransactionHistory,
@@ -41,6 +41,6 @@ func (rp inbox) CreateTransactionHistory(
 	return rp.trans.CreateHistory(ctx, transactionID, history)
 }
 
-func (rp inbox) GetUser(ctx context.Context, userID uuid.UUID) (*model.User, error) {
+func (rp InboxInstance) GetUser(ctx context.Context, userID uuid.UUID) (*model.User, error) {
 	return rp.user.Get(ctx, userID)
 }

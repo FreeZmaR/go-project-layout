@@ -8,14 +8,14 @@ import (
 	"github.com/google/uuid"
 )
 
-type userRP struct {
+type UserPG struct {
 	db postgres.Connect
 }
 
-func NewUser(db postgres.Connect) User {
-	return &userRP{db: db}
+func NewUser(db postgres.Connect) *UserPG {
+	return &UserPG{db: db}
 }
 
-func (rp userRP) Get(ctx context.Context, userID uuid.UUID) (*model.User, error) {
+func (rp UserPG) Get(ctx context.Context, userID uuid.UUID) (*model.User, error) {
 	return pg.GetUser(ctx, rp.db, userID)
 }

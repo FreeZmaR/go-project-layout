@@ -12,18 +12,18 @@ const (
 	transactionExpirationTime = 60 * 60 * 24 * 7
 )
 
-type transactionCache struct {
+type TransactionCacheRD struct {
 	db redis.Connect
 }
 
-func NewTransactionCache(db redis.Connect) TransactionCache {
-	return &transactionCache{db: db}
+func NewTransactionCache(db redis.Connect) *TransactionCacheRD {
+	return &TransactionCacheRD{db: db}
 }
 
-func (rp transactionCache) Get(ctx context.Context, transactionID uuid.UUID) (*model.Transaction, error) {
+func (rp TransactionCacheRD) Get(ctx context.Context, transactionID uuid.UUID) (*model.Transaction, error) {
 	return rd.GetTransaction(ctx, rp.db, transactionID)
 }
 
-func (rp transactionCache) Set(ctx context.Context, transaction *model.Transaction) error {
+func (rp TransactionCacheRD) Set(ctx context.Context, transaction *model.Transaction) error {
 	return rd.SetTransaction(ctx, rp.db, transaction, transactionExpirationTime)
 }
