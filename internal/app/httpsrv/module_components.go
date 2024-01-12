@@ -13,17 +13,6 @@ import (
 	"time"
 )
 
-func InvokeAppLifeCycle(lc fx.Lifecycle, app *App) {
-	lc.Append(fx.Hook{
-		OnStart: func(ctx context.Context) error {
-			return app.Run(ctx)
-		},
-		OnStop: func(ctx context.Context) error {
-			return app.Stop(ctx)
-		},
-	})
-}
-
 func ProvideHTTPServer(cfg *types.HTTPServer, router *mux.Router) (*http.Server, error) {
 	if build.IsProductionMode() && nil == cfg.TLS {
 		return nil, errors.New("http-server: tls config is required")
@@ -74,4 +63,15 @@ func ProvideMuxRouter() *mux.Router {
 	})
 
 	return router
+}
+
+func InvokeAppLifeCycle(lc fx.Lifecycle, app *App) {
+	lc.Append(fx.Hook{
+		OnStart: func(ctx context.Context) error {
+			return app.Run(ctx)
+		},
+		OnStop: func(ctx context.Context) error {
+			return app.Stop(ctx)
+		},
+	})
 }
