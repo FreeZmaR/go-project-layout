@@ -16,7 +16,7 @@
   - [Details](storage/readme.md)
 
 ## Description
-Этот уровень является основную *начинку* приложения, которая содержит бизнес-логику, модели, хранилища и т.д.
+Этот уровень является основной *начинкой* приложения, которая содержит бизнес-логику, модели, хранилища и т.д.
 К донному слою имеют доступ только слой `CMD`.
 Слой имеет подуровни, которые описаны ниже.
 
@@ -60,7 +60,7 @@ stateDiagram-v2
 
 ## App SubLayer
 
-Этот подуровень содержит описания подпрограмм, основное приложение - это набор поддпрограмм.
+Этот подуровень содержит описания подпрограмм.
 В моем примере подпрограммой является `http` сервер, который имеет разные модули. 
 Например, модулю `inbox` и `outbox`.
 
@@ -70,7 +70,7 @@ stateDiagram-v2
 
 ---
 
-This sublayer contains descriptions of subprograms, the main application is a set of subprograms.
+This sublayer contains descriptions of subprograms.
 In my example, a subprogram is an `http` server that has different modules.
 For example, the `inbox` and `outbox` modules.
 
@@ -81,8 +81,8 @@ More detailed description of the sublayer in the [app](app/readme.md) directory.
 ## Domain SubLayer
 
 Этот подуровень содержит описания моделей доменной области приложения. В этом слое не должно быть никакой бизнес-логики,
-только описания предметной части выраженной в коде. Например, модель `user` или `transaction`. 
-Все что связанно с объектами принимающие участие в бизнес-процессе.
+только описания предметной части выраженной в коде. 
+Описываются все объекты принимающие участие в бизнес-процессе, например: модель `user`, `transaction` или агрегат `transaction`.
 Я предпочитаюс максимольно задокументировать данную часть приложения, чтобы любой другой человек мог понять все детали.
 
 Данный слой не имеет доступа к другим слоям приложения, кроме слоя `lib`.
@@ -94,8 +94,8 @@ More detailed description of the sublayer in the [app](app/readme.md) directory.
 ---
 
 This sublayer contains descriptions of domain models of the application. This layer should not have any business logic,
-only descriptions of the subject area expressed in code. For example, the `user` or `transaction` model.
-Everything related to objects participating in the business process.
+only descriptions of the subject area expressed in code. 
+All objects participating in the business process are described, for example: the `user`, `transaction` model or the `transaction` aggregate.
 I prefer to document this part of the application as much as possible so that any other person can understand all details.
 
 This layer does not have access to other layers of the application, except for the `lib` layer.
@@ -107,7 +107,7 @@ More detailed description of the sublayer in the [domain](domain/readme.md) dire
 ## Use-Case SubLayer
 
 Этот подуровень содержит описания бизнес-процессов приложения, сервисный слой. Как описать и выразить бизнес-процесс решать вам. 
-В моем примере я использую интерфейсы, которые описывают бизнес-процессы.
+В моем примере я использую два интерфейса, для описания процесса для `inbox` и `outbox`.
 
 Название директории для данного слоя - `usecase`.
 
@@ -116,7 +116,7 @@ More detailed description of the sublayer in the [domain](domain/readme.md) dire
 ---
 
 This sublayer contains descriptions of the business processes of the application, the service layer. How to describe and express the business process is up to you.
-In my example, I use interfaces that describe business processes.
+In my example, I use two interfaces to describe the process for `inbox` and `outbox`.
 
 The directory name for this layer is `usecase`.
 
@@ -124,9 +124,10 @@ More detailed description of the sublayer in the [usecase](usecase/readme.md) di
 
 ## Repository SubLayer
 
-Этот подуровень является сервисным слоям отвечающий за данные.
-В моем примере я использую репозитории для отдельных `usecase` бизнес-процессов, так же я использую репозитории для отдельной модели если это потребуется.
-Например, репозиторий для модели `user` или `transaction`, а для бизнес-процессов репозиторий `inbox` и `outbox`.
+Этот подуровень является сервисным слоям отвечающий за работу с хранилищем.
+В моем примере я использую репозитории для отдельных `usecase` бизнес-процессов, которые взаимодействую с интрейфесами других репозиторий.
+Остальные репозитории используються для отдельных моделей или агрегатов в зависимости от типа хранилища и их название отражает тип хранилища.
+Например, репозиторий: `User`, `UserCahce` и `Transaction`, `TransactionCasche` для моделей `user` и `transaction`, интерфейсы реализуют структуры `UserPG`, `UserCascheRD`, `TransactionPG`, `TransactionCacheRD`, где префикс `PG` - **postgres** и `RD` - **redis**.
 Так же как и в слое `domain` я предпочитаю детально документировать интейрфесы, которые описывают бизнес-процессы.
 
 Название директории для данного слоя - `repository`.
@@ -135,9 +136,10 @@ More detailed description of the sublayer in the [usecase](usecase/readme.md) di
 
 ---
 
-This sublayer is a service layer responsible for data.
-In my example, I use repositories for individual `usecase` business processes, I also use repositories for a separate model if necessary.
-For example, a repository for the `user` or `transaction` model, and for business processes the `inbox` and `outbox` repository.
+This sublayer is a service layer responsible for working with the repository.
+In my example, I use repositories for individual `usecase` business processes that interact with the interfaces of other repositories.
+The rest of the repositories are used for individual models or aggregates depending on the type of repository and their name reflects the type of repository.
+For example, the repository: `User`, `UserCahce` and `Transaction`, `TransactionCasche` for the `user` and `transaction` models, the interfaces implement the `UserPG`, `UserCascheRD`, `TransactionPG`, `TransactionCacheRD` structures, where the prefix `PG` - **postgres** and `RD` - **redis**.
 As in the `domain` layer, I prefer to document in detail the interfaces that describe business processes.
 
 The directory name for this layer is `repository`.
