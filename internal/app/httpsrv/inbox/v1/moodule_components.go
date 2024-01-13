@@ -2,14 +2,22 @@ package v1
 
 import (
 	"context"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/fxutils"
 	"github.com/FreeZmaR/go-project-layout/internal/lib/postgres"
 	"github.com/FreeZmaR/go-project-layout/internal/repository"
 	"github.com/FreeZmaR/go-project-layout/internal/usecase"
 	"go.uber.org/fx"
 )
 
-func ProvidePostgresPoolClient(param ParamsIn) (postgres.Client, error) {
-	return postgres.NewPool(param.Postgres)
+func ProvidePostgresPoolClient(param ParamsIn, finalizer *fxutils.Finalizer) (postgres.Client, error) {
+	pool, err := postgres.NewPool(param.Postgres)
+	if err != nil {
+		return nil, err
+	}
+
+	finalizer.Append(pool)
+
+	return pool, nil
 }
 
 func ProvideInboxUseCase(inboxRP repository.Inbox) usecase.Inbox {
@@ -28,14 +36,20 @@ func ProvideUserRepository(pgClient postgres.Client) repository.User {
 	return repository.NewUser(pgClient)
 }
 
+func ProvideFinalizer() *fxutils.Finalizer {
+	return fxutils.NewFinalizer()
+}
+
 func InvokeInitRouter(p ParamsIn, inboxUC usecase.Inbox) {
 	InitRouter(p.Router, inboxUC)
 }
 
-func InvokeFinalizer(lc fx.Lifecycle, client postgres.Client) {
+func InvokeFinalizer(lc fx.Lifecycle, finalizer *fxutils.Finalizer) {
 	lc.Append(fx.Hook{
 		OnStop: func(_ context.Context) error {
-			return client.Close()
+			finalizer.Close()
+
+			return nil
 		},
 	})
 }

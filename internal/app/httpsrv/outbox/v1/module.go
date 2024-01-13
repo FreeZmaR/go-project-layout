@@ -20,6 +20,7 @@ func NewModule() fx.Option {
 	return fx.Module(
 		moduleName,
 		fx.Provide(
+			ProvideFinaliser,
 			ProvidePostgresPoolClient,
 			ProvideRedisClient,
 			ProvideOutboxUseCase,

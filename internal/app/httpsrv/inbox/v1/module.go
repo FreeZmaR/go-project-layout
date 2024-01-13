@@ -19,6 +19,7 @@ func NewModule() fx.Option {
 	return fx.Module(
 		moduleName,
 		fx.Provide(
+			ProvideFinalizer,
 			ProvidePostgresPoolClient,
 			ProvideTransactionRepository,
 			ProvideUserRepository,

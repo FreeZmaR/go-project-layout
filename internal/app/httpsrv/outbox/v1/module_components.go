@@ -2,6 +2,7 @@ package v1
 
 import (
 	"context"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/fxutils"
 	"github.com/FreeZmaR/go-project-layout/internal/lib/postgres"
 	"github.com/FreeZmaR/go-project-layout/internal/lib/redis"
 	"github.com/FreeZmaR/go-project-layout/internal/repository"
@@ -9,12 +10,26 @@ import (
 	"go.uber.org/fx"
 )
 
-func ProvidePostgresPoolClient(param ParamsIn) (postgres.Client, error) {
-	return postgres.NewPool(param.Postgres)
+func ProvidePostgresPoolClient(param ParamsIn, finalizer *fxutils.Finalizer) (postgres.Client, error) {
+	pool, err := postgres.NewPool(param.Postgres)
+	if err != nil {
+		return nil, err
+	}
+
+	finalizer.Append(pool)
+
+	return pool, nil
 }
 
-func ProvideRedisClient(param ParamsIn) (redis.Client, error) {
-	return redis.NewClient(param.Redis)
+func ProvideRedisClient(param ParamsIn, finalizer *fxutils.Finalizer) (redis.Client, error) {
+	client, err := redis.NewClient(param.Redis)
+	if err != nil {
+		return nil, err
+	}
+
+	finalizer.Append(client)
+
+	return client, nil
 }
 
 func ProvideOutboxUseCase(repo repository.Outbox) usecase.Outbox {
@@ -46,21 +61,20 @@ func ProvideTransactionCacheRepository(rdClient redis.Client) repository.Transac
 	return repository.NewTransactionCache(rdClient)
 }
 
+func ProvideFinaliser() *fxutils.Finalizer {
+	return fxutils.NewFinalizer()
+}
+
 func InvokeInitRouter(p ParamsIn, outboxUC usecase.Outbox) {
 	InitRouter(p.Router, outboxUC)
 }
 
-func InvokeFinalizer(lc fx.Lifecycle, pgClient postgres.Client, rdClient redis.Client) {
+func InvokeFinalizer(lc fx.Lifecycle, finalizer *fxutils.Finalizer) {
 	lc.Append(fx.Hook{
 		OnStop: func(_ context.Context) error {
-			pgErr := pgClient.Close()
-			rdErr := rdClient.Close()
+			finalizer.Close()
 
-			if pgErr != nil {
-				return pgErr
-			}
-
-			return rdErr
+			return nil
 		},
 	})
 }
