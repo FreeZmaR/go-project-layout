@@ -11,7 +11,7 @@
 The main goals of this project are:
  - Show service structure for Golang projects with a simple example
  - Show how to use DI in Golang by `go.uber.org/fx` and how it can be convenient
- - Show how easy it is to work when project structure has boundaries between layers
+ - Show how easy it is to work when project structure has parameters between layers
 
 ## Features
 
@@ -26,20 +26,20 @@ Here are some of the project's features:
 
 ## Project Structure
 
-I like splitting the project into several layers, each of them has own responsibilities and boundaries.
+I like splitting the project into several layers, each of them has own responsibilities and parameters.
 
 For me, any project has three main layers:
   - `CMD` - entry point for the application, in this layer we describe how to run the application
   - `Internal` - the main layer of the application, in this layer we describe the domain area and business logic of the application's
-  - `Config` - the layer of the application that is responsible for the configuration of the application's, I call this layer *foundation*
+  - `Config` - the layer of the application that is responsible for the configuration of the application's, I call this layer *the foundation*
 
 
     I want to pay attention to the fact that the project structure is not a dogma, it is just a recommendation.
 
 
-In *layer relationship diagram* you can see that the project structure has boundaries between layers and layers can address to each other.
+In *the layer relationship diagram* you can see that the project structure has parameters between layers and layers can link to each other.
 
-`CMD` layer contact with `Internal` and `Config` layers, `Internal` layer contact only with `Config` layer. `Config` layer does not contact with other layers.
+`CMD` layer link with `Internal` and `Config` layers, `Internal` layer link only with `Config` layer. `Config` layer is the final layer.
 
 **Layer relationship diagram:**
 ```mermaid
@@ -57,21 +57,21 @@ Each layer has detailed description in the `readme.md` file inside the layer dir
 - [Config Layer](config/readme.md)
 
 For the root directory, I would like to use files that are responsible for the service and help to use this service.
-In my example, I use `Makefile` and `docker-compose.yml` files. Usually you want to open root directory and use something quickly.
+In my example, I use `Makefile` and `docker-compose.yml` files, due to their opening and quick access speed.
 Also in the golang service you can use `go.mod` and `go.sum` files.
 
 
 ## Project Example
 
-In this project, I show you how to use the project structure and how to use DI in Golang.
+I show how to use the project structure and how to use DI in Golang.
 For example, I use a simple payment service that have two applications: `inbox` and `outbox`.
 
-The `inbox` application responsible for handling requests for creating *payment transaction* from the user, 
+The `inbox` application responsible for handling requests on creating *payment transaction* from the user, 
 and the `outbox` application responsible for handling requests for showing *payment transaction* from the user.
 
 For this example, I use the `http` server, to show how you can use versioning and why you should use `uber.fx`.
 
-P.S. I'm not describe the application logic in details, I only try to show the structure of the application and how to use DI in Golang. Sometimes you can see not optimized code or solutions, because the goal was to show project structure.
+P.S. I don't describe the application logic in detail, I only try to show the structure of the application and how to use DI in Golang. Occasionally optimized code will not be seen, because the goal was to show project structure.
 
 
 
