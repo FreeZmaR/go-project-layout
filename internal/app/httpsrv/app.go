@@ -3,6 +3,7 @@ package httpsrv
 import (
 	"context"
 	"errors"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/fxutils"
 	"log/slog"
 	"net"
 	"net/http"
@@ -10,11 +11,12 @@ import (
 
 type App struct {
 	srv      *http.Server
+	runner   *fxutils.Runner
 	serverCH chan error
 }
 
-func NewApp(srv *http.Server) *App {
-	return &App{srv: srv, serverCH: make(chan error, 1)}
+func NewApp(srv *http.Server, runner *fxutils.Runner) *App {
+	return &App{srv: srv, runner: runner, serverCH: make(chan error, 1)}
 }
 
 func (app *App) Run(_ context.Context) error {
@@ -24,11 +26,14 @@ func (app *App) Run(_ context.Context) error {
 	}
 
 	go app.serve(ln)
+	app.runner.StartTracking()
 
 	return nil
 }
 
 func (app *App) Stop(ctx context.Context) error {
+	defer app.runner.StopTracking()
+
 	err := app.srv.Shutdown(ctx)
 	if err != nil {
 		return err

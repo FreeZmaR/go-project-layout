@@ -6,6 +6,7 @@ import (
 	"errors"
 	"github.com/FreeZmaR/go-project-layout/config/build"
 	"github.com/FreeZmaR/go-project-layout/config/types"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/fxutils"
 	"github.com/gorilla/mux"
 	"go.uber.org/fx"
 	"log/slog"
@@ -13,7 +14,25 @@ import (
 	"time"
 )
 
-func ProvideHTTPServer(cfg *types.HTTPServer, router *mux.Router) (*http.Server, error) {
+func ProvideProvider() fx.Option {
+	return fx.Provide(
+		provideApp,
+		provideHTTPServer,
+		provideMuxRouter,
+	)
+}
+
+func ProvideInvoke() fx.Option {
+	return fx.Invoke(
+		invokeAppLifeCycle,
+	)
+}
+
+func provideApp(srv *http.Server, runner *fxutils.Runner) *App {
+	return NewApp(srv, runner)
+}
+
+func provideHTTPServer(cfg *types.HTTPServer, router *mux.Router) (*http.Server, error) {
 	if build.IsProductionMode() && nil == cfg.TLS {
 		return nil, errors.New("http-server: tls config is required")
 	}
@@ -54,7 +73,7 @@ func ProvideHTTPServer(cfg *types.HTTPServer, router *mux.Router) (*http.Server,
 	return srv, nil
 }
 
-func ProvideMuxRouter() *mux.Router {
+func provideMuxRouter() *mux.Router {
 	router := mux.NewRouter()
 	router.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		slog.Info("not found handler")
@@ -65,7 +84,7 @@ func ProvideMuxRouter() *mux.Router {
 	return router
 }
 
-func InvokeAppLifeCycle(lc fx.Lifecycle, app *App) {
+func invokeAppLifeCycle(lc fx.Lifecycle, app *App) {
 	lc.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
 			return app.Run(ctx)

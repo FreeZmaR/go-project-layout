@@ -1,34 +1,18 @@
 package v1
 
 import (
-	"github.com/FreeZmaR/go-project-layout/config/types"
-	"github.com/gorilla/mux"
+	"github.com/FreeZmaR/go-project-layout/internal/app/httpsrv/inbox/v1/servprovider"
 	"go.uber.org/fx"
 )
 
 const moduleName = "inbox-v1"
 
-type ParamsIn struct {
-	fx.In
-
-	Postgres *types.Postgres
-	Router   *mux.Router
-}
-
 func NewModule() fx.Option {
 	return fx.Module(
 		moduleName,
-		fx.Provide(
-			ProvideFinalizer,
-			ProvidePostgresPoolClient,
-			ProvideTransactionRepository,
-			ProvideUserRepository,
-			ProvideInboxRepository,
-			ProvideInboxUseCase,
-		),
-		fx.Invoke(
-			InvokeInitRouter,
-			InvokeFinalizer,
-		),
+		servprovider.ProvideServices(),
+		servprovider.ProvideRepositories(),
+		servprovider.ProvideUseCases(),
+		servprovider.ProvideRouter(),
 	)
 }

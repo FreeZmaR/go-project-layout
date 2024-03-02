@@ -16,9 +16,7 @@ type App interface {
 Поддпрограммы могут быть разных типов, например, `http` сервер, `grpc` сервер, `cron` задача, `cli` приложение и т.д.
 Как их реализовывать остаеться за разработчиком.
 
-В моем примере модули `inbox` и `outbox` для реализации использую `uber.fx`, где в файле `module.go` описываю версии модуля подпрограммы, а в файле `module_components.go` описываю компоненты для модуля.
-
-Компоненты для модуля называю по принципу как они описанны в `uber.fx`, например: `ProvidePostgres`, `InvokeAppLifeCycle`.
+В моем примере модули `inbox` и `outbox` для реализации использую подход `ServiceProvider`, где в файле `module.go` описываю версии модуля подпрограммы, а в файле `module_зкщмшвук.go` описываю компоненты, которые должны быть в модуле.
 
 --- 
 
@@ -38,6 +36,4 @@ type App interface {
 Subprograms can be of different types, for example, `http` server, `grpc` server, `cron` task, `cli` application, etc.
 How to implement them remains with the developer.
 
-In my example, the `inbox` and `outbox` modules for implementation use `uber.fx`, where in the `module.go` file I describe the versions of the subprogram module, and in the `module_components.go` file I describe the components for the module.
-
-I name the components for the module according to the principle as they are described in `uber.fx`, for example: `ProvidePostgres`, `InvokeAppLifeCycle`.
+In my example, the `inbox` and `outbox` modules for implementation use approach `ServiceProvider`, where in the `module.go` file I describe the versions of the subprogram module, and in the `module_provider.go` file I describe the module provider.

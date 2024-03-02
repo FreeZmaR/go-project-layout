@@ -24,15 +24,9 @@ func main() {
 
 	slog.Info("Config loaded")
 
-	app := httpsrv.NewAppOutboxV1(
-		fx.Provide(
-			func() *types.HTTPServer { return cfg.Server },
-			func() *types.Postgres { return cfg.Postgres },
-			func() *types.Redis { return cfg.Redis },
-		),
-	)
-
+	app := httpsrv.NewAppOutboxV1(AppProvider(cfg))
 	if err = app.Err(); err != nil {
+		slog.Error("Error stack", app.ErrStack())
 		slog.Error("Failed to create app", slog.String("err", err.Error()))
 
 		os.Exit(1)
@@ -43,4 +37,12 @@ func main() {
 	app.Run()
 
 	slog.Info("App stopped")
+}
+
+func AppProvider(cfg *types.Outbox) fx.Option {
+	return fx.Provide(
+		func() *types.HTTPServer { return cfg.Server },
+		func() *types.Postgres { return cfg.Postgres },
+		func() *types.Redis { return cfg.Redis },
+	)
 }

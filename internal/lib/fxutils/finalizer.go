@@ -1,6 +1,12 @@
 package fxutils
 
-import "log/slog"
+import (
+	"log/slog"
+)
+
+type FinalizerItem interface {
+	Close() error
+}
 
 type Finalizer struct {
 	items []FinalizerItem
@@ -18,7 +24,7 @@ func (f *Finalizer) Close() {
 	for _, item := range f.items {
 		err := item.Close()
 		if err != nil {
-			slog.Error("error close finalizer", slog.String("err", err.Error()))
+			slog.Error("Error close item by finalizer: ", err.Error())
 		}
 	}
 }
