@@ -3,19 +3,20 @@ package httpsrv
 import (
 	inboxV1 "github.com/FreeZmaR/go-project-layout/internal/app/httpsrv/inbox/v1"
 	outboxV1 "github.com/FreeZmaR/go-project-layout/internal/app/httpsrv/outbox/v1"
+	"github.com/FreeZmaR/go-project-layout/internal/lib/fxutils"
 	"go.uber.org/fx"
 )
 
 const moduleName = "HTTP-Server"
 
-func NewAppInboxV1(provider fx.Option) *fx.App {
-	return newModuleApp(
+func NewAppInboxV1(provider fx.Option) *fxutils.App {
+	return fxutils.NewApp(
 		NewModuleInboxV1(provider),
 	)
 }
 
-func NewAppOutboxV1(provider fx.Option) *fx.App {
-	return newModuleApp(
+func NewAppOutboxV1(provider fx.Option) *fxutils.App {
+	return fxutils.NewApp(
 		NewModuleOutboxV1(provider),
 	)
 }
@@ -27,14 +28,9 @@ func NewModuleInboxV1(provider fx.Option) fx.Option {
 		fx.Options(
 			inboxV1.NewModule(),
 		),
-		fx.Provide(
-			NewApp,
-			ProvideHTTPServer,
-			ProvideMuxRouter,
-		),
-		fx.Invoke(
-			InvokeAppLifeCycle,
-		),
+
+		ProvideProvider(),
+		ProvideInvoke(),
 	)
 }
 
@@ -45,20 +41,8 @@ func NewModuleOutboxV1(provider fx.Option) fx.Option {
 		fx.Options(
 			outboxV1.NewModule(),
 		),
-		fx.Provide(
-			NewApp,
-			ProvideHTTPServer,
-			ProvideMuxRouter,
-		),
-		fx.Invoke(
-			InvokeAppLifeCycle,
-		),
-	)
-}
 
-func newModuleApp(module fx.Option) *fx.App {
-	return fx.New(
-		module,
-		fx.NopLogger,
+		ProvideProvider(),
+		ProvideInvoke(),
 	)
 }
